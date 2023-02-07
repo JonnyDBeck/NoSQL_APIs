@@ -56,6 +56,10 @@ const thoughtSchema = new Schema(
     }
 );
 
-const User = model('thought', thoughtSchema);
+thoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
+  });
 
-module.exports = User;
+const Thought = model('thought', thoughtSchema);
+
+module.exports = Thought;
