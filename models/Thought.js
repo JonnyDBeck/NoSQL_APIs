@@ -4,11 +4,6 @@ const moment = require('moment');
 
 const reactionSchema = new Schema(
     {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            default: null
-        },
         reactionBody: {
             type: String,
             required: true,
@@ -35,7 +30,7 @@ const reactionSchema = new Schema(
 
 const thoughtSchema = new Schema(
     {
-        thoughText: {
+        thoughtText: {
             type: String,
             required: true,
             maxLength: 280,
