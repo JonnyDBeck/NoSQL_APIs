@@ -10,7 +10,7 @@ const reactionSchema = new Schema(
             default: null
         },
         reactionBody: {
-            type: Date,
+            type: String,
             required: true,
             validate: validate({
                 validator: 'isLength',
@@ -27,6 +27,12 @@ const reactionSchema = new Schema(
             default: Date.now,
             get: (date) => moment(date).format('YYYY-MM-DD'),
         }
+    },
+    {
+      toJSON: {
+        virtuals: true,
+      },
+      id: false,
     }
 );
 
@@ -53,6 +59,12 @@ const thoughtSchema = new Schema(
         reactions: {
             type: reactionSchema
         }
+    },
+    {
+      toJSON: {
+        virtuals: true,
+      },
+      id: false,
     }
 );
 
@@ -60,6 +72,6 @@ thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
   });
 
-const Thought = model('thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;
