@@ -27,7 +27,7 @@ module.exports = {
   },
   // Update a user
   updateUser(req, res) {
-    User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true })
+    User.updateOne({ _id: req.params.userId }, req.body)
     .then((user) =>
       !user
         ? res.status(404).json({ message: 'No user with that ID' })
@@ -38,6 +38,26 @@ module.exports = {
   // Delete a user
   deleteUser(req, res) {
     User.deleteOne({ _id: req.params.userId })
+    .then((user) =>
+      !user
+        ? res.status(404).json({ message: 'No user with that ID' })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
+  },
+
+  // Add friend
+  addFriend(req, res) {
+    User.updateOne({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId }})
+    .then((user) =>
+      !user
+        ? res.status(404).json({ message: 'No user with that ID' })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
+  },
+  removeFriend(req, res) {
+    User.updateOne({ _id: req.params.userId }, { $pull: { friends: req.params.friendId }})
     .then((user) =>
       !user
         ? res.status(404).json({ message: 'No user with that ID' })
