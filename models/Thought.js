@@ -12,11 +12,8 @@ const reactionSchema = new Schema(
         reactionBody: {
             type: String,
             required: true,
-            validate: validate({
-                validator: 'isLength',
-                arguments: [1, 280],
-                message: 'Name should be between 1 and 280 characters'
-            }),
+            maxLength: 280,
+            minLength: 1
         },
         username: {
             type: String,
@@ -41,11 +38,8 @@ const thoughtSchema = new Schema(
         thoughText: {
             type: String,
             required: true,
-            validate: validate({
-                validator: 'isLength',
-                arguments: [1, 280],
-                message: 'Name should be between 1 and 280 characters'
-            }),
+            maxLength: 280,
+            minLength: 1
         },
         createdAt: {
             type: Date,
@@ -57,7 +51,7 @@ const thoughtSchema = new Schema(
             required: true
         },
         reactions: {
-            type: reactionSchema
+            type: [reactionSchema]
         }
     },
     {

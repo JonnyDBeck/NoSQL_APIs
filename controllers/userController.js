@@ -46,6 +46,7 @@ module.exports = {
     .catch((err) => res.status(500).json(err));
   },
 
+  // friend controllers
   // Add friend
   addFriend(req, res) {
     User.updateOne({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId }})
